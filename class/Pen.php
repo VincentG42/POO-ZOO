@@ -12,7 +12,7 @@ class Pen
 
        private array $population;
 
-       private int $foodPortion;
+       // private int $foodPortion;
 
 
        //setters
@@ -21,10 +21,10 @@ class Pen
               $this->name = $name;
        }
 
-       public function setFoodPortion(int $portion)
-       {
-              $this->foodPortion = $portion;
-       }
+       // public function setFoodPortion(int $portion)
+       // {
+       //        $this->foodPortion = $portion;
+       // }
 
        public function setCleanliness($cleanliness): void
        {
@@ -50,10 +50,10 @@ class Pen
               return $this->name;
        }
        
-       public function getFoodPortion(): int
-       {
-              return $this->foodPortion;
-       }
+       // public function getFoodPortion(): int
+       // {
+       //        return $this->foodPortion;
+       // }
        
        public function getCleanliness(): string
        {
@@ -83,7 +83,7 @@ class Pen
               'cleanliness' => $this -> getcleanliness(), 
               'populationSpecies' => $this -> getPopulationSpecies(),
               'populationNumber' =>  $this -> getPopulationNumber(),
-              'foodPortion' => $this -> getFoodPortion()
+              // 'foodPortion' => $this -> getFoodPortion()
               ];
        return $carac;
 
@@ -100,36 +100,20 @@ class Pen
        }
 
        public function addAnimal(Animal $animal) {
-              if ($this -> populationNumber>0 && $this ->populationNumber <6){
-                     if ($animal -> getSpecies() === $this -> populationSpecies){
-                            $this -> population[] = $animal;
-                            $this -> setPopulationNumber($this->getPopulationNumber(),1);
-                     }else {return 'Cet animal ne peux pas aller dans cet enclos';}
-
-              } else if($this ->populationNumber <6){
-                     $this -> setPopulationSpecies($animal -> getSpecies()); 
-                     $this -> population[] = $animal;
-                     $this -> setPopulationNumber($this->getPopulationNumber(),1);
-
-              } else {
-                     return $this ->getName()." est complet, impossible de rajouter un animal";
-              }
+              $this -> population[] = $animal;
+              $this -> setPopulationNumber($this->getPopulationNumber(),1);            
        }
 
        public function removeAnimal(){
-              $this -> setPopulationNumber($this->getPopulationNumber(),-1);
+             
+              $this -> setPopulationNumber($this ->getPopulationNumber(),-1);
               array_slice($this -> getPopulation(), -1);
-
-              if($this -> getPopulationNumber() === 0){
-                            $this -> setPopulationSpecies("");
-              }
-
        }
 
        public function clean(){
-              if ($this -> getPopulationNumber() === 0){
+              
                      $this -> setCleanliness('propre');
-              }
+              
        }
 
 }

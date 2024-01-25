@@ -3,7 +3,7 @@
 
 try{
 
-    $dsn = 'mysql:host=localhost;dbname=';
+    $dsn = 'mysql:host=localhost;dbname=poo-zoo';
     
     $username = 'root';
     $password = ''; 

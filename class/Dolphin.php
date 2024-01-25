@@ -6,10 +6,10 @@ class Dolphin extends Animal{
     private string $type = 'swimming';
 
 
-    public function getType()
-    {
-        return $this->type;
-    }
+    
+    public function setType($type = 'swimming') : void{
+        $this -> type = $type;
+   }
 
     public function cry(){
         return $this -> getName()." cliquette! ";

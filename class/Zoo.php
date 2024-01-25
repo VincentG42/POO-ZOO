@@ -1,14 +1,23 @@
 <?php
 
 class Zoo{
+
     private string $name;
 
-    private string $employee;
+    private int $employee;
 
     private int $penNumberMax =6;
 
     protected array $pens;
 
+    private int $id;
+
+    public function __construct(string $name )
+    {
+        $this -> name = $name;
+    }
+
+//setters
     public function setName($name) : void{
         $this -> name = $name;
     }
@@ -20,6 +29,14 @@ class Zoo{
         $this -> penNumberMax = $penNumberMax;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+   
+
+
+    //getters
     public function getName() : string {
         return $this -> name;
     }
@@ -35,5 +52,14 @@ class Zoo{
     public function getPens() : array {
         return $this -> pens;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    //methods
+
+ 
 }
 ?>
