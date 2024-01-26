@@ -15,7 +15,7 @@ class Dolphin extends Animal{
         return $this -> getName()." cliquette! ";
     }
 
-    public function swim(){
+    public function move(){
         return $this -> getName()." nage";
     }
 

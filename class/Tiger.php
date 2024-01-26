@@ -9,7 +9,7 @@ class Tiger extends Animal{
         return $this -> getName(). " feule ";
     }
 
-    public function vagabonde(){
+    public function move(){
         return  $this -> getName() ." vagabonde dans sa cage";
     }
 }

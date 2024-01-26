@@ -52,6 +52,25 @@ class ZooManager{
 
     }
 
+    // recuperer un zoo selon id
+
+    public function findZoo( int $id) : array{
+        $request = $this -> db -> prepare ('SELECT * FROM zoo WHERE id = :id');
+        $request ->execute ([
+                    'id' => $id     
+                ]);
+        $zoo = $request -> fetch();
+
+        return $zoo;
+
+    }
+    public function hydrateZoo(array $zoo) : Zoo {
+        $newZoo = new Zoo ($zoo['name']);
+        $newZoo -> setId($zoo['id']);
+
+        return $newZoo;
+    }
+
 
 }
 

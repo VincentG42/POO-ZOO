@@ -14,7 +14,7 @@ class Eagle extends Animal{
         return $this -> getName(). " glatit!";
     }
 
-    public function vol(){
+    public function move(){
         return  $this -> getName() ." vole";
     }
 }

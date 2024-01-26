@@ -164,6 +164,8 @@ abstract class Animal{
 
      abstract function cry(); // a redefinir pour chaque animal
 
+     abstract function move();
+
      public function beHealed(): void {  //si malade isSick = true donc quand soigné isSick -> false
         $this -> setIsSick(false);
      }

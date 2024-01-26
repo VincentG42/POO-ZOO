@@ -32,6 +32,7 @@ if(isset($_POST['zoo_name']) && !empty($_POST['zoo_name'])
 
 
 <div class="container">
+    <!-- form pour creation zoo -->
     <div id="create_zoo" class="row flex-column justify-content-center align-items-center text-center m-4">
         <form action="" method="post" class= "col-6 my-2">
 
@@ -56,6 +57,7 @@ if(isset($_POST['zoo_name']) && !empty($_POST['zoo_name'])
 
 
     <div id="zoo_list">
+        <!-- affichage liste zoo exidtant en bdd -->
     <?php foreach ( $zooManager -> findAllZoo() as $zoo){ ?>
 
             <div class="zoo_card">

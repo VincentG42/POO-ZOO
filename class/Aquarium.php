@@ -1,19 +1,28 @@
 <?php
 
-class Aquarium extends Enclos{
+class Aquarium extends Pen{
 
     private string $salinity;
 
+    private string $type = 'Aquarium';
 
 
 
+    //getters
   
     public function getSalinity() :string
     {
         return $this->salinity;
     }
 
+    public function getType() : string
+    {
+           return $this->type;
+    }
+
      
+    //setters
+
     public function setSalinity($salinity) : void
     {
         $this->salinity = $salinity;
@@ -21,6 +30,9 @@ class Aquarium extends Enclos{
 
     }
 
+
+
+    //methods
 
     public function clean(){
         if ($this -> getPopulationNumber() === 0){

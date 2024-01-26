@@ -40,23 +40,31 @@ class EmployeeManager{
     }
 
      //recuperer l'employe du zoo'
-     public function findEmployee(){
+     public function findEmployee($zooId) : array{
         
-        $request = $this->db->query('SELECT * FROM employee');
+        $request = $this->db->prepare('SELECT * FROM employee Where zoo_id = :zoo_id ');
+        $request ->execute([
+                'zoo_id' => $zooId
+        ]);
         $employeeDb = $request->fetch();
-        // var_dump($allHeroesDb);
-        
-           
-        $zooEmployee  = new Employee ($employeeDb);
 
-        return $zooEmployee ;
-           
+        return $employeeDb;
     }
+  
+    public function hydrateEmployee(array $employeeDb) :Employee{
+
+            $zooEmployee  = new Employee ($employeeDb);
+    
+            return $zooEmployee ;
+    }
+           
+           
+}
 
 
     
 
 
-}
+
 
 ?>

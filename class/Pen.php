@@ -2,19 +2,33 @@
 
 class Pen
 {
+       private int $id;
+       
        private string $name;
 
        private string $cleanliness;
 
        private int $populationNumber;
 
-       private int $populationSpecies;
+       private string $populationSpecies;
 
+       private string $type = 'Pen';
+
+       private int $zooId;
+       
        private array $population;
-
        // private int $foodPortion;
 
-
+       public function __construct($data){
+              $this -> id = $data['id'];
+              $this -> name = $data['name'];
+              $this -> cleanliness = $data['cleanliness'];
+              $this -> populationNumber = $data['population_number'];
+              $this -> populationSpecies = $data ['population_species'];
+       }
+       
+              
+       
        //setters
        public function setName($name): void
        {
@@ -31,15 +45,31 @@ class Pen
               $this->cleanliness = $cleanliness;
        }
 
-       public function setPopulationNumber($population, $numberAdded)
+       public function setPopulationNumber($population, $numberAdded) : void
        {
               $this->populationNumber =  $population +$numberAdded;
        }
 
-       public function setPopulationSpecies($populationSpecies)
+       public function setPopulationSpecies($populationSpecies) : void
        {
               $this->populationSpecies = $populationSpecies;
        }
+
+       public function setZooId($zooId) : void
+       {
+              $this->zooId = $zooId;
+       }
+
+       public function setType($type): void
+       {
+              $this->type = $type;
+       }
+
+       public function setId($id)
+       {
+              $this->id = $id;
+       }
+
 
      
 
@@ -73,6 +103,20 @@ class Pen
 
        public function getPopulation() : array {
                return $this -> population;
+       }
+
+       public function getZooId() : int
+       {
+              return $this->zooId;
+       }
+       
+       public function getType() : string
+       {
+              return $this->type;
+       }
+       public function getId()
+       {
+              return $this->id;
        }
        
        
@@ -115,5 +159,6 @@ class Pen
                      $this -> setCleanliness('propre');
               
        }
+      
 
-}
+}    
