@@ -9,7 +9,7 @@ class Dolphin extends Animal{
     
     public function setType($type = 'swimming') : void{
         $this -> type = $type;
-   }
+    }
 
     public function cry(){
         return $this -> getName()." cliquette! ";
@@ -19,7 +19,7 @@ class Dolphin extends Animal{
         return $this -> getName()." nage";
     }
 
-   
+
 }
 
 
