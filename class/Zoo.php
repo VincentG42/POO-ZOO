@@ -8,7 +8,7 @@ class Zoo{
 
     private int $penNumberMax =6;
 
-    protected array $pens;
+    protected array $pens = [];
 
     private int $id;
 
@@ -33,7 +33,6 @@ class Zoo{
     {
         $this->id = $id;
     }
-   
 
 
     //getters
@@ -60,6 +59,47 @@ class Zoo{
 
     //methods
 
- 
+    public function getPensContent() {
+        foreach($this -> getPens()  as $pen){
+            $pen -> getAllCarac();
+        }
+    }
+
+    public function getTotalPopulation() : int {
+        $totalPopulation = 0;
+        foreach($this -> getPens()  as $pen){
+            $totalPopulation += $pen -> getPopulationNumber();
+        }
+
+        return $totalPopulation;
+    }
+
+    public function main(){
+
+        foreach ($this -> getPens()  as $pen){
+            // random pen status
+            $cleanliness = ['mauvaise', 'correcte', 'propre'];
+            $pen -> setCleanliness($cleanliness[rand(0,2)]);
+
+            if ($pen instanceof Aviary){
+                $roofState = ['abîmé', 'en bon état'];
+                $pen -> setRoofState($roofState[rand(0,1)]);
+            }
+
+            if ($pen instanceof Aquarium){
+                $salinity = ['mauvaise', 'bonne'];
+                $pen -> setSalinity($salinity[rand(0,1)]);
+            }
+
+            //random animal status
+            foreach ($pen -> getPopulation() as $animal){
+                $animal -> setIsSick(rand(0,1));
+                $animal -> setISAwake(rand(0,1));
+                $animal -> setIsHungry(rand(0,1));
+            }
+        }
+
+
+    }
 }
 ?>

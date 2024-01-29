@@ -40,7 +40,7 @@ class EmployeeManager{
     }
 
      //recuperer l'employe du zoo'
-     public function findEmployee($zooId) : array{
+    public function findEmployee($zooId) : array{
         
         $request = $this->db->prepare('SELECT * FROM employee Where zoo_id = :zoo_id ');
         $request ->execute([
@@ -50,15 +50,14 @@ class EmployeeManager{
 
         return $employeeDb;
     }
-  
+
     public function hydrateEmployee(array $employeeDb) :Employee{
 
             $zooEmployee  = new Employee ($employeeDb);
     
             return $zooEmployee ;
     }
-           
-           
+
 }
 
 

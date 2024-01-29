@@ -16,10 +16,10 @@ class Pen
 
        private int $zooId;
        
-       private array $population;
+       private array $population = [];
        // private int $foodPortion;
 
-       public function __construct($data){
+       public function __construct(array $data){
               $this -> id = $data['id'];
               $this -> name = $data['name'];
               $this -> cleanliness = $data['cleanliness'];
@@ -69,9 +69,9 @@ class Pen
        {
               $this->id = $id;
        }
-
-
-     
+       public function setPopulation(Animal $animal){
+              $this -> population[] = $animal;
+       }
 
 
        //getters
@@ -102,7 +102,7 @@ class Pen
        }
 
        public function getPopulation() : array {
-               return $this -> population;
+              return $this -> population;
        }
 
        public function getZooId() : int
@@ -134,12 +134,12 @@ class Pen
        }
 
        public function getPopulationCarac() : array{ //afficher les caractéristiques des animaux qu'il contient,
-                     $populationCarac =[];
+       
                      foreach($this -> getPopulation() as $animal){
                             $animal -> getAllCarac();
-                            $populationCarac[] = $animal;
+                            $this->population[] = $animal;
                      }
-              return $populationCarac;
+              return $this -> population;
 
        }
 
@@ -149,16 +149,19 @@ class Pen
        }
 
        public function removeAnimal(){
-             
+
               $this -> setPopulationNumber($this ->getPopulationNumber(),-1);
-              array_slice($this -> getPopulation(), -1);
+              array_splice($this -> getPopulation(), -1, 1);
        }
 
        public function clean(){
-              
+              if($this -> getCleanliness() === "mauvaise"){
+                     $this -> setCleanliness('correcte');
+              } else if ($this -> getCleanliness() === "corecte"){
                      $this -> setCleanliness('propre');
+              }
               
        }
-      
+
 
 }    

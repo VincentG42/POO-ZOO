@@ -12,18 +12,18 @@ if(isset($_POST['zoo_name']) && !empty($_POST['zoo_name'])
 && isset($_POST['employee_name']) && !empty($_POST['employee_name'])
 && isset($_POST['employee_age']) && !empty($_POST['employee_age'])
 && isset($_POST['employee_gender']) && !empty($_POST['employee_gender']) ){
-     $newZoo = $zooManager -> addZoo( new Zoo($_POST['zoo_name']));
+    $newZoo = $zooManager -> addZoo( new Zoo($_POST['zoo_name']));
 
-     $dataEmployee = ['name' => $_POST['employee_name'],
+    $dataEmployee = ['name' => $_POST['employee_name'],
                         'age' => $_POST['employee_age'],
                         'gender' => $_POST['employee_gender'],
                     ];
-                     var_dump($newZoo);
+    var_dump($newZoo);
 
-     $employeeManager -> addEmployee(new Employee($dataEmployee), $newZoo);
+    $employeeManager -> addEmployee(new Employee($dataEmployee), $newZoo);
 
 
-   var_dump( $zooManager -> findAllZoo());
+    var_dump( $zooManager -> findAllZoo());
 
 }
 ?>

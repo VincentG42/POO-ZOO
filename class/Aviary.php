@@ -17,9 +17,9 @@ class Aviary extends Pen{
 
     public function getType() : string
     {
-           return $this->type;
+        return $this->type;
     }
-     
+
 
     //setters
     public function setRoofState($roofState) : void
@@ -31,15 +31,15 @@ class Aviary extends Pen{
 
     //methods
     public function clean(){
-        if ($this -> getPopulationNumber() === 0){
-                if($this -> getRoofState() === 'good'){
-                    
-                } else {
-                    $this -> setRoofState('good');
-                }
-                $this -> setCleanliness('propre');
+
+        parent::clean();
+
+        if ($this ->getRoofState() === 'abîmé'){
+            $this -> setRoofState('en bon état');
+
         }
- }
+    }
+    
 
 }
 

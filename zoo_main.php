@@ -47,18 +47,17 @@ if(isset($_POST['pen_name']) && !empty($_POST['pen_name'])
             'population_number' => intval($_POST['population_number']),
             'population_species' => $_POST['population_species']
     ];
-   if( $penManager -> checkNumberPens($data) < 6 ){
+    if( $penManager -> checkNumberPens($data) < 6 ){
 
-       $penManager -> createPen($data);
-   } else {
+        $penManager -> createPen($data);
+    } else {
     echo "Il y a deja 6 enclos, impossible d'en créer un nouveau" ;
-
-   }
+    }
 }
 
 // recuperation des enclos existants
 
- $currentZooPenlist = $penManager -> hydratePens( $penManager -> findAllPens($_SESSION['zoo_id']));
+$currentZooPenlist = $penManager -> hydratePens( $penManager -> findAllPens($_SESSION['zoo_id']));
 
 // var_dump($currentZooPenlist)
 
@@ -100,14 +99,14 @@ if(isset($_POST['pen_name']) && !empty($_POST['pen_name'])
     <!-- affichage liste enclos -->
     <div id="pen_list">
         <?php foreach($currentZooPenlist as $currentZooPen){ 
-           $penCarac = $currentZooPen ->getAllCarac() ?> 
+            $penCarac = $currentZooPen ->getAllCarac() ?> 
             <div class="pen_card">
                 <h4> <?= $penCarac['name'] ?> </h4>
                 <p> Enclos de type : <?= $currentZooPen ->gettype() ?></p>
                 <p> Etat de propreté : <?= $penCarac['cleanliness'] ?></p>
                 <p> Contient :<?= $penCarac['populationNumber']." ".$penCarac['populationSpecies']."(s)"  ?></p>
 
-                <form action="pen.php" method ="post">
+                <form action="pen_display.php" method ="post">
                     <input type="hidden" name="pen_id" value ="<?= $currentZooPen ->getId()?>">
                     <button type="submit" class="btn btn-primary my-3">Visiter l'enclos</button>
 

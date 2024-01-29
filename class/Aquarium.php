@@ -9,7 +9,7 @@ class Aquarium extends Pen{
 
 
     //getters
-  
+
     public function getSalinity() :string
     {
         return $this->salinity;
@@ -17,10 +17,10 @@ class Aquarium extends Pen{
 
     public function getType() : string
     {
-           return $this->type;
+        return $this->type;
     }
 
-     
+
     //setters
 
     public function setSalinity($salinity) : void
@@ -35,15 +35,12 @@ class Aquarium extends Pen{
     //methods
 
     public function clean(){
-        if ($this -> getPopulationNumber() === 0){
-                if($this -> getSalinity() === 'good'){
-                    
-                } else {
-                    $this -> setSalinity('good');
-                }
-                $this -> setCleanliness('propre');
-        }
- }
+        parent ::clean();
+
+        if($this -> getSalinity() != 'bonne'){
+            $this -> setSalinity('bonne');           
+        } 
+    }
 
 }
 

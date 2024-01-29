@@ -25,7 +25,7 @@ class ZooManager{
                 $request = $this->db->prepare("INSERT INTO zoo (name) VALUES (:name)");
                 $request->execute([
                             'name' => $zoo-> getname()
-                             ]);
+                        ]);
                 $id = $this->db->lastInsertId();
                 $zoo-> setID($id);
             }
@@ -34,17 +34,17 @@ class ZooManager{
     }
 
      //recuperer la liste des zoo
-     public function findAllZoo(){
+    public function findAllZoo(){
             $zooList = [];
         $request = $this->db->query('SELECT * FROM zoo');
         $allZooDb = $request->fetchAll();
         // var_dump($allHeroesDb);
         foreach ($allZooDb as $zoo){
-           
+
         $newZoo  = new Zoo ($zoo['name']);
         $newZoo -> setId($zoo['id']);  
         $zooList[] = $newZoo;     
-           
+
         }
 
         return $zooList;

@@ -55,7 +55,6 @@ class Employee {
     {
         $this->name = $name;
     }
-  
 
     public function setAge($age) : void
     {
@@ -80,7 +79,7 @@ class Employee {
     //methods
 
     public function checkPen(Pen $pen){
-         $pen ->  getAllCarac();
+        $pen ->  getAllCarac();
 
     }
 
@@ -122,16 +121,15 @@ class Employee {
         }
     }
 
-    public function RemoveFromPen (Pen $pen){
+    public function removeFromPen (Pen $pen){
         if( $pen -> getPopulationNumber() >1){
 
             $pen -> removeAnimal();
 
         } else if ($pen -> getPopulationNumber() === 1){
 
-         $pen -> setPopulationSpecies('');
-         $pen -> removeAnimal();
-         
+        $pen -> setPopulationSpecies('');
+        $pen -> removeAnimal();
         }
     }
 

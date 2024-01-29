@@ -1,7 +1,7 @@
 <?php
 
 
-class PenManager{
+class AnimalManager{
     private PDO $db;
 
 
@@ -29,32 +29,54 @@ class PenManager{
     
     //inserer enclos en bdd sans doublon de nom
 
-    public function createPen( array $animal) : void{
+    public function createAnimal( array $animal) : void{
 
-            $request = $this ->db ->prepare("SELECT * FROM animal WHERE name = :name");
-            $request -> execute([
-                        'name' => $animal['name']
-                        ]);
-            $testAnimal = $request ->fetch();
-    
-                if(!$testAnimal){
-                    $request = $this->db->prepare("INSERT INTO pen (pen_id, name, age, height, weight, is_hungry, is_sick, is_awake, species, type) 
-                                                    VALUES (:pen_id, :name, :age, :height, :weight, :is_hungry, :is_sick, :is_awake, :species :type)");
-                    $request->execute([
+                $request = $this->db->prepare("INSERT INTO animal (pen_id, age, height, weight, is_hungry, is_sick, is_awake, species) 
+                                                    VALUES (:pen_id, :age, :height, :weight, :is_hungry, :is_sick, :is_awake, :species)");
+                $request->execute([
                         'pen_id' => $animal['pen_id'], 
-                        'name' => $animal['name'], 
                         'age' => $animal['age'],
                         'height' => $animal['height'],
                         'weight' => $animal['weight'],
                         'is_hungry' => $animal['is_hungry'],
                         'is_sick' => $animal['is_sick'],
                         'is_awake' => $animal['is_awake'],
-                        'species' => $animal['species'],   
-                        'type' => $animal['type']
-               
+                        'species' => $animal['species']
+
                 ]);
-            }
+
+
+            
+    }
+
+    public function findAllAnimals(int $penId) : array{
+        $request = $this -> db -> prepare ("SELECT * FROM animal WHERE pen_id = :pen_id");
+        $request ->execute([
+            'pen_id' => $penId
+        ]);
+        $allAnimalsInPen = $request ->fetchAll();
+        return $allAnimalsInPen;
+
+    }
+
+    public function hydrateAllAnimals (array $allAnimalsInPen, Pen $pen){
+        foreach ($allAnimalsInPen  as $animal){
+            $data=[ 'species' => $animal['species'],
+                    'age' => $animal['age'],
+                    'height' => $animal['height'],
+                    'weight' => $animal['weight'],
+                    'isHungry' => $animal['is_hungry'],
+                    'isAwake' => $animal['is_awake'],
+                    'isSick' => $animal['is_sick']
+            ];
+            
+            $newAnimal = new $data['species']($data);
+            $pen -> setPopulation($newAnimal);
+            $pen -> setPopulationNumber($pen -> getPopulationNumber(), 1);
+            $pen ->setPopulationSpecies($newAnimal -> getSpecies());
+
         }
+    }
 
 
 

@@ -48,15 +48,14 @@ class PenManager{
                         'population_number' => $pen['population_number'],
                         'population_species' => $pen['population_species'],
                         'type' => $pen['type']
-               
                 ]);
             }
-        }
+    }
 
     //recuperer la liste des enclos d'un zoo
 
     public function findAllPens( int $zooId) : array{
-           
+
         $request = $this->db->prepare('SELECT * FROM pen WHERE zoo_id = :zoo_id ');
         $request -> execute([
                     'zoo_id' => $zooId
@@ -69,17 +68,30 @@ class PenManager{
     public function hydratePens(array $pens) : array{
 
         foreach ($pens as $pen){
-           
+
         $newPen  = new $pen['type'] ($pen);
-       
-    
         $this ->penList[] = $newPen;     
-           
+
         }
+        
         return $this ->penList;
     }
 
+    public function findPen(int $id){
+        $request = $this->db->prepare('SELECT * FROM pen WHERE id = :id ');
+        $request -> execute([
+                    'id' => $id
+                    ]);
+        $pen = $request->fetch();
 
+        return $pen;
+    }
+    
+    public function hydratePen(array $pen){
+        $newPen = new $pen['type']($pen);
+
+        return $newPen;
+    }
 
 
 }

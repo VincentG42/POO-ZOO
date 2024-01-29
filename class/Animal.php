@@ -4,8 +4,6 @@
 
 abstract class Animal{
 
-    protected string $name;
-
     protected int $age;
 
     protected int $height; 
@@ -20,7 +18,7 @@ abstract class Animal{
 
     protected string $species;
 
-    protected string $type;  //land/flying/swimming
+
 
     protected int $id;
 
@@ -29,8 +27,7 @@ abstract class Animal{
     
 
     //construct
-     public function __construct(array $data){
-            $this -> name = $data['name'];
+    public function __construct(array $data){
             $this -> species = $data['species'];
             $this -> age = $data['age'];
             $this -> height = $data['height'];
@@ -38,19 +35,12 @@ abstract class Animal{
             $this -> isHungry = $data['isHungry'];
             $this -> isAwake = $data['isAwake'];
             $this -> isSick = $data['isSick'];
-            $this -> type = $data['type'];
+    }
 
-     }
 
-     
 
 
     //setters
-
-    public function setName( string $name) : void {
-
-        $this -> name = $name;
-    }
 
     public function setAge( int $age) : void {
 
@@ -87,10 +77,6 @@ abstract class Animal{
         $this->species = $species;
     }
 
-    public function setType($type) : void{
-         $this -> type = $type;
-    }
-
     public function setId($id) : void
     {
         $this->id = $id;
@@ -102,10 +88,6 @@ abstract class Animal{
     }
 
     //getters
-
-    public function getName() : string {
-        return $this -> name;
-    }
 
     public function getAge() : int {
         return $this -> age;
@@ -135,11 +117,6 @@ abstract class Animal{
     {
         return $this->species;
     }
-
-    public function getType() : string 
-    {
-        return $this ->type;
-    }
     
     public function getId() : int
     {
@@ -153,57 +130,45 @@ abstract class Animal{
 
 
     //method
-     public function eat(){
+    public function eat(){
         // prend quantite de nourriture dans enclos et -1, et set IsHungry to false, retourne la quantite de nourriture presente dans enclos
 
         // $enclos -> setFoodPortion($enclos -> getFoodPortion() -1);
         $this-> setIsHungry(false);
 
         // return $enclos -> getFoodPortion();  
-     }
+    }
 
      abstract function cry(); // a redefinir pour chaque animal
 
-     abstract function move();
+    abstract function move();
 
      public function beHealed(): void {  //si malade isSick = true donc quand soigné isSick -> false
         $this -> setIsSick(false);
-     }
+    }
 
-     public function sleep() : void {
+    public function sleep() : void {
         $this-> SetIsAwake(False);
 
-     }
+    }
 
-     public function wakeUp() : void {
+    public function wakeUp() : void {
         $this -> setIsAwake(True);
-     }
+    }
 
     public function getAllCarac() : array {
-        $carac =[ 'name' => $this->getName(),
+        $carac =[ 
                     'species' => $this ->getSpecies(), 
                     'age' => $this -> getAge(), 
                     'height' => $this -> getHeight(),
                     'weight' =>  $this -> getWeight(),
                     'isHungry' => $this -> getIsHungry(),
                     'isAwake' => $this -> getIsAwake(),
-                    'isSik' => $this -> getIsSick(),
-                    'type' => $this -> getType()
+                    'isSik' => $this -> getIsSick()
 
         ];
-     return $carac;
-     }
-  
-    
-
-
-    
-    
-
-    
-
-
-   
+    return $carac;
+    }
 }
 
 
