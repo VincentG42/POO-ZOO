@@ -94,6 +94,16 @@ class PenManager{
     }
 
 
+    public function deletePen(Pen $pen){
+        // if $pen ->  check que enclos est vide avant de delete
+
+        $request  =  $this ->db -> prepare ("DELETE FROM animal WHERE id= :id");
+        $request->execute([
+            'id' => $pen ->getId()
+        ]);
+    }
+
+
 }
 
 
