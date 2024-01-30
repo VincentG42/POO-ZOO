@@ -33,6 +33,10 @@ class Zoo{
     {
         $this->id = $id;
     }
+    public function setPens(Pen $pen) : void
+    {
+        $this ->pens[] = $pen;
+    }
 
 
     //getters

@@ -67,10 +67,12 @@ class AnimalManager{
                     'weight' => $animal['weight'],
                     'isHungry' => $animal['is_hungry'],
                     'isAwake' => $animal['is_awake'],
-                    'isSick' => $animal['is_sick']
+                    'isSick' => $animal['is_sick'],
+                    'id' => $animal['id']
             ];
             
             $newAnimal = new $data['species']($data);
+            $newAnimal -> setId($data['id']);
             $pen -> setPopulation($newAnimal);
             $pen -> setPopulationNumber($pen -> getPopulationNumber(), 1);
             $pen ->setPopulationSpecies($newAnimal -> getSpecies());
@@ -78,7 +80,13 @@ class AnimalManager{
         }
     }
 
+    public function deleteAnimal($animalId){
 
+        $request  =  $this ->db -> prepare ("DELETE FROM animal WHERE id= :id");
+        $request->execute([
+            'id' => $animalId
+        ]);
+    }
 
 
 }

@@ -3,9 +3,6 @@ require_once('config/db.php');
 require_once('config/autoload.php');
 include_once('partials/header.php');
 
-
-// var_dump($_POST);
-
 // creation des managers
 $zooManager = new ZooManager($db);
 $employeeManager = new EmployeeManager($db);
@@ -16,7 +13,7 @@ $animalManager = new AnimalManager($db);
 if(isset($_POST['zoo_id']) && !empty($_POST['zoo_id'])){
 
     $_SESSION['zoo_id'] =$_POST['zoo_id'];
-} else { header('Location: pen_display.php');}
+}
  // recuperation des infos du zoo
 $currentZoo =$zooManager -> hydrateZoo( $zooManager -> findZoo($_SESSION['zoo_id']));
 
@@ -31,10 +28,9 @@ $currentEmployee -> setZooId($currentZoo-> getID());
 
 //stockages objets employe et zoo dans session (a voir si utlité)
 $_SESSION['zoo'] = $currentZoo;
+
 $_SESSION['employee'] = $currentEmployee;
-// var_dump($currentZoo);
-// var_dump ($currentEmployee);
-// var_dump($_SESSION);
+
 
 // creation enclos en bdd
 
@@ -47,18 +43,22 @@ if(isset($_POST['pen_name']) && !empty($_POST['pen_name'])
             'type' => $_POST['type'],
             'population_number' => intval($_POST['population_number']),
             'population_species' => $_POST['population_species']
-    ];
-    if( $penManager -> checkNumberPens($data) < 6 ){
-
-        $penManager -> createPen($data);
-    } else {
-    echo "Il y a deja 6 enclos, impossible d'en créer un nouveau" ;
+        ];
+        if( $penManager -> checkNumberPens($data) < 6 ){
+            
+            $penManager -> createPen($data);
+        } else {
+            echo "Il y a deja 6 enclos, impossible d'en créer un nouveau" ;
+        }
     }
-}
-
-// recuperation des enclos existants
-
-$currentZooPenlist = $penManager -> hydratePens( $penManager -> findAllPens($_SESSION['zoo_id']));
+    
+    // recuperation des enclos existants
+    
+    $currentZooPenlist = $penManager -> hydratePens( $penManager -> findAllPens($_SESSION['zoo_id']));
+    //stockage liste des enclos dans objet Zoo (pour session)
+    foreach($currentZooPenlist as $currentZooPen){
+        $currentZoo -> setPens($currentZooPen);
+    }
 
 ?>
 
