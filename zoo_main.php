@@ -10,12 +10,13 @@ include_once('partials/header.php');
 $zooManager = new ZooManager($db);
 $employeeManager = new EmployeeManager($db);
 $penManager = new PenManager($db);
+$animalManager = new AnimalManager($db);
 
 //stockage id zoo dans session
 if(isset($_POST['zoo_id']) && !empty($_POST['zoo_id'])){
 
     $_SESSION['zoo_id'] =$_POST['zoo_id'];
-}
+} else { header('Location: pen_display.php');}
  // recuperation des infos du zoo
 $currentZoo =$zooManager -> hydrateZoo( $zooManager -> findZoo($_SESSION['zoo_id']));
 
@@ -40,7 +41,7 @@ $_SESSION['employee'] = $currentEmployee;
 if(isset($_POST['pen_name']) && !empty($_POST['pen_name'])
 && isset($_POST['type']) && !empty($_POST['type']) ){
     $data =[
-        'zoo_id' => $currentZoo -> getId(), 
+            'zoo_id' => $currentZoo -> getId(), 
             'name' => $_POST['pen_name'], 
             'cleanliness' =>  $_POST['cleanliness'],
             'type' => $_POST['type'],
@@ -59,23 +60,52 @@ if(isset($_POST['pen_name']) && !empty($_POST['pen_name'])
 
 $currentZooPenlist = $penManager -> hydratePens( $penManager -> findAllPens($_SESSION['zoo_id']));
 
-// var_dump($currentZooPenlist)
-
-
 ?>
 
 <!-- ------------------------------------------------------------------------------------------- -->
 
-<div class="container mt-3">
-    <h2> Bienvenue à <?= ucfirst($currentZoo -> getName()) ?></h2>
-    <h3> <?=ucfirst( $currentEmployee -> getName())?>, à votre service !!</h3>
+<a href="./index.php" class="getback_link"><button class="btn btn-success"> Revenir à l'accueil</button></a>
 
-    <!-- form creation enclos -->
-    <div id="create_pen" class="row justify-content-center align-items-center text-center m-4">
-            <form action="" method="post" class= " col-4 my-2">
+<div class="container-fluid pt-4" id="zoo_main">
+    <div class="row text-center mb-5">
+        <div class="mt-2">
+            <h2> Bienvenue à <?= ucfirst($currentZoo -> getName()) ?></h2>
+            <h3> <?=ucfirst( $currentEmployee -> getName())?>, à votre service !!</h3>
+        </div>
+    </div>
 
+
+    <!-- affichage liste enclos -->
+    <div id="pen_list" class="row gap-3 justify-content-between align-items-center">
+        <?php foreach($currentZooPenlist as $currentZooPen){ 
+            $animalManager -> hydrateAllAnimals( $animalManager -> findAllAnimals($currentZooPen->getId()), $currentZooPen);
+
+            $penCarac = $currentZooPen ->getAllCarac() ?> 
+            <div class=" row col-5 mx-3 justify-content-center">
+                <div class="pen_card col-4 text-center">
+                    <h4 class="mb-3"> <?= $penCarac['name'] ?> </h4>
+                    <p> Enclos de type : <?= $currentZooPen ->gettype() ?></p>
+                    <p> Etat de propreté : <?= $penCarac['cleanliness'] ?></p>
+                    <p> Contient :<?= $penCarac['populationNumber']." ".$penCarac['populationSpecies']."(s)"  ?></p>
+
+                    <form action="pen_display.php" method ="post">
+                        <input type="hidden" name="pen_id" value ="<?= $currentZooPen ->getId()?>">
+                        <button type="submit" class="btn btn-success my-1">Visiter l'enclos</button>
+
+                    </form>
+                </div>
+
+            </div>
+        <?php } ?>
+
+    </div>
+
+        <!-- form creation enclos -->
+    <div id="create_pen" class="">
+        
+            <form action="" method="post" class="d-flex gap-1 align-items-center">
                 <label for="pen_name" class="form-label"> Nom de l'enclos : </label>
-                <input type="text" class="form-control" id="pen_name" name ="pen_name">
+                <input type="text" class="form-control w-25" id="pen_name" name ="pen_name">
 
                 <select name="type" id="" class="form-label">
                 
@@ -88,34 +118,11 @@ $currentZooPenlist = $penManager -> hydratePens( $penManager -> findAllPens($_SE
                 <input type="hidden" name="population_species" value ="à définir">
                 <input type="hidden" name="population_number" value =0>
 
-                <button type="submit" class="btn btn-primary my-3">Créez un enclos</button>
+                <button type="submit" class="btn btn-success">Créez un enclos</button>
 
             </form>
-
     </div>
-    <!-- form suppression enclos -->
-    <!-- form modification type enclos -->
 
-    <!-- affichage liste enclos -->
-    <div id="pen_list">
-        <?php foreach($currentZooPenlist as $currentZooPen){ 
-            $penCarac = $currentZooPen ->getAllCarac() ?> 
-            <div class="pen_card">
-                <h4> <?= $penCarac['name'] ?> </h4>
-                <p> Enclos de type : <?= $currentZooPen ->gettype() ?></p>
-                <p> Etat de propreté : <?= $penCarac['cleanliness'] ?></p>
-                <p> Contient :<?= $penCarac['populationNumber']." ".$penCarac['populationSpecies']."(s)"  ?></p>
-
-                <form action="pen_display.php" method ="post">
-                    <input type="hidden" name="pen_id" value ="<?= $currentZooPen ->getId()?>">
-                    <button type="submit" class="btn btn-primary my-3">Visiter l'enclos</button>
-
-                </form>
-
-            </div>
-        <?php } ?>
-
-    </div>
 
 </div>
 

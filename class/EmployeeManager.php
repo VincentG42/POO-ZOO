@@ -14,8 +14,6 @@ class EmployeeManager{
     //creer un employe en bdd
     public function addEmployee(Employee $employee,  Zoo $zoo) : void
     {
-        if(!$zoo){
-
             $zooId = $zoo->getId();
             
             $request = $this->db->prepare("SELECT * FROM employee WHERE zoo_id = :zoo_id");
@@ -34,9 +32,6 @@ class EmployeeManager{
                     'gender' => $employee->getGender()
                 ]);
             }
-        }
-
-                            
     }
 
      //recuperer l'employe du zoo'

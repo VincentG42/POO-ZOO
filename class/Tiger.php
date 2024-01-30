@@ -6,11 +6,11 @@ class Tiger extends Animal{
 
 
     public function cry(){
-        return $this -> getName(). " feule ";
+        return $this -> getSpecies(). " feule ";
     }
 
     public function move(){
-        return  $this -> getName() ." vagabonde dans sa cage";
+        return  $this -> getSpecies() ." vagabonde dans sa cage";
     }
 }
 

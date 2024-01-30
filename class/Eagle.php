@@ -8,14 +8,14 @@ class Eagle extends Animal{
     
     public function setType($type = 'flying') : void{
         $this -> type = $type;
-    }
+}
 
     public function cry(){
-        return $this -> getName(). " glatit!";
+        return $this -> getSpecies(). " glatit!";
     }
 
     public function move(){
-        return  $this -> getName() ." vole";
+        return  $this -> getSpecies() ." vole";
     }
 }
 

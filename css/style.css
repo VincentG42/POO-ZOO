@@ -1,0 +1,81 @@
+/* globals */
+body{
+    overflow: hidden;
+}
+
+.getback_link{
+    position: fixed;
+    top: 5%;
+    left : 5%;
+}
+/* index */
+#main_page{
+    height: 100vh;
+    background-image: url(../imgs/—Pngtree—zoo\ material_735739.png);
+    background-position: top;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+
+#create_zoo form{
+    margin-left: 5em;
+    margin-top: 5em;
+    background-color: #536f32;
+    border-radius: 5%;
+}
+
+.zoo_card{
+    margin-left: 5em;
+    margin-top: 5em;
+}
+
+.zoo_card > div{
+    background-color: #536f32;
+    border-radius: 15px;
+
+}
+
+/* zoo_main */
+
+#zoo_main{
+    height: 100vh;
+    background-image: url(../imgs/26944.jpg);
+    background-position: center;
+    background-size:60%;
+    background-repeat: no-repeat;
+}
+
+
+.pen_card{
+    color: rgb(133, 188, 133);
+    background-color: rgba(7, 32, 13, 0.893);
+    border-radius: 15px;
+}
+
+.pen_card p{
+    margin-top: -0.8em;
+}
+
+/* pen_display */
+#create_pen{
+    position: fixed;
+    bottom :2em;
+    right: 35%;
+}
+
+.eagle{
+    background-image:url(../imgs/eagle.jpg);
+}
+
+.bear{
+    background-image: url(../imgs/bear.jpg);
+}
+
+.dolphin{
+    background-image: url(../imgs/dolphin.jpg);
+    
+}
+
+.tiger{
+    background-image:url(../imgs/tiger.jpg);
+}

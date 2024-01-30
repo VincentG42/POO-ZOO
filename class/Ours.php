@@ -6,11 +6,11 @@ class Dolphin extends Animal{
 
 
     public function cry(){
-        return $this -> getName()." cliquette! ";
+        return $this -> getSpecies()." cliquette! ";
     }
 
     public function move(){
-        return $this -> getName(). "nage";
+        return $this -> getSpecies(). "nage";
     }
 }
 

@@ -22,7 +22,7 @@ abstract class Animal{
 
     protected int $id;
 
-    protected int $enclosId;
+    protected int $penId;
 
     
 
@@ -82,9 +82,9 @@ abstract class Animal{
         $this->id = $id;
     }
 
-    public function setEnclosId($enclosId)
+    public function setEnclosId($penId)
     {
-        $this->enclosId = $enclosId;
+        $this->penId = $penId;
     }
 
     //getters
@@ -123,9 +123,9 @@ abstract class Animal{
         return $this->id;
     }
 
-    public function getEnclosId() : int
+    public function getPenId() : int
     {
-        return $this->enclosId;
+        return $this->penId;
     }
 
 
