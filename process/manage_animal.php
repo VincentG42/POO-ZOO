@@ -14,7 +14,7 @@ $currentPen = $penManager->hydratePen($penManager->findPen($_SESSION['pen_id']))
 
 
 if(isset($_POST['heal']) && !empty($_POST['heal'])
-    && isset($_POST['animal_id']) && !empty($_POST['animal_id'])){
+&& isset($_POST['animal_id']) && !empty($_POST['animal_id'])){
         
 
 }
@@ -40,7 +40,6 @@ if (
     if ($newAnimal instanceof Animal) {
         $curreentEmployee->addIntoPen($currentPen, $newAnimal);
     }
-
     header('Location: ../pen_display.php');
 }
 
@@ -49,5 +48,6 @@ if (
 if (isset($_POST['animal_id']) && !empty($_POST['animal_id'])) {
     $curreentEmployee->removeFromPen($currentPen);
     $animalManager ->deleteAnimal($_POST['animal_id']);
+
     header('Location: ../pen_display.php');
 }

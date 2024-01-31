@@ -32,9 +32,10 @@ class PenManager{
 
     public function createPen( array $pen) : void{
 
-            $request = $this ->db ->prepare("SELECT * FROM pen WHERE name = :name");
+            $request = $this ->db ->prepare("SELECT * FROM pen WHERE name = :name AND zoo_id= :zoo_id");
             $request -> execute([
-                        'name' => $pen['name']
+                        'name' => $pen['name'],
+                        'zoo_id' => $pen['zoo_id']
                         ]);
             $testPen = $request ->fetch();
     
@@ -94,16 +95,27 @@ class PenManager{
     }
 
 
-    public function deletePen(Pen $pen){
-        // if $pen ->  check que enclos est vide avant de delete
+    public function deletePen(int $penId){
 
-        $request  =  $this ->db -> prepare ("DELETE FROM animal WHERE id= :id");
-        $request->execute([
-            'id' => $pen ->getId()
-        ]);
+
+            $request  =  $this ->db -> prepare ("DELETE FROM pen WHERE id= :id");
+            $request->execute([
+                'id' => $penId
+            ]);
+
     }
 
+    public function penModicification(Pen $pen){
+        $request = $this -> db -> prepare("UPDATE pen SET  cleanliness = :cleanliness, population_number= :population_number, population_species = :population_species WHERE id =:id");
 
+        $request ->execute ([
+            'id' => $pen -> getId(),
+            'cleanliness'=> $pen ->getCleanliness(),
+            'population_number' => $pen -> getPopulationByArray(),
+            'population_species' => $pen ->getPopulationSpecies()
+        ]);
+        // var_dump($pen ->getPopulationNumber());
+    }
 }
 
 

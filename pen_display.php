@@ -3,48 +3,50 @@ require_once('config/db.php');
 require_once('config/autoload.php');
 include_once('partials/header.php');
 
-// var_dump($_SESSION['pen_id']);
+
 if (isset($_POST['pen_id']) && !empty($_POST['pen_id'])) {
 
     $_SESSION['pen_id'] = $_POST['pen_id'];
 }
-
 
 // instanciation des managers
 $penManager = new PenManager($db);
 $animalManager = new AnimalManager($db);
 
 // recup infos enclos
-$currentPen = $penManager->hydratePen($penManager->findPen($_SESSION['pen_id']));
+foreach ($_SESSION['zoo'] -> getPens() as $pen){
+
+    if ($pen ->getId() ===intval( $_SESSION['pen_id'])){
+
+        $currentPen = $pen;
+        if ($currentPen instanceof Aviary){
+            $currentPen ->setRoofState($pen -> getRoofState());
+        }
+        if ($currentPen instanceof Aquarium){
+            $currentPen -> setSalinity($pen -> getSalinity());
+        }
+    }
+}
+var_dump($currentPen);
+
 $currentPen->setZooId($_SESSION['zoo_id']);
 $curreentEmployee = $_SESSION['employee'];
-
-// a voir quand fonction $zoo-> main sera deployée
-// if($currentPen instanceof Aviary){
-//     $currentPen -> getRoofState();
-// }
-// if($currentPen instanceof Aquarium){
-//     $currentPen-> getSalinity();
-// }
 
 // recup données population de l'enclos
 $currentPopulationInPen = $animalManager->hydrateAllAnimals($animalManager->findAllAnimals($_SESSION['pen_id']), $currentPen);
 
-// var_dump($currentPen);
-
-//insertion animal en bdd via form
-
-
-//management de l'enclos
-$currentPenCarac = $currentPen->getAllCarac();
-
-// var_dump($currentPenCarac);
+$_SESSION['penObject'] = $currentPen;
 
 ?>
 
 
 <!-- ------------------------------------------------------------------------------------------- -->
-<a href="zoo_main.php" class="getback_link"><button class="btn btn-success">Revenir au zoo </button> </a>
+<div class="getback_link">
+    <form action="./process/manage_pen.php" method="post">
+    <input type="hidden" name="maj_pen" value="maj_pen">
+    <button class="btn btn-success">Revenir au zoo </button>
+    </form>
+</div>
 
 <div class="<?= strtolower($currentPen->getPopulationSpecies())?>">
 
@@ -55,7 +57,18 @@ $currentPenCarac = $currentPen->getAllCarac();
         
         <!-- affichage données enclos -->
         <div class="pen_data ">
-            <p> Etat de propreté : <?= $currentPenCarac['cleanliness'] ?></p>
+            <p> Etat de propreté : <?= $currentPen ->getCleanliness() ?></p>
+            
+            <?php if ($currentPen instanceof Aviary){?>
+                <p> Etat de la toiture : <?= $currentPen -> getRoofState()?></p> 
+            <?php } ?>
+
+
+            <?php if ($currentPen instanceof Aquarium){?>
+                <p> Salinité : <?= $currentPen -> getSalinity()?></p>
+            <?php } ?>
+
+
             <p> Contient <?= $currentPen->getPopulationNumber() . " " . $currentPen->getPopulationSpecies() ?>(s)</p>
             <div>
                 
@@ -67,7 +80,7 @@ $currentPenCarac = $currentPen->getAllCarac();
                             <form action="./process/manage_animal.php" method='post'>
                                 <input type="hidden" name="heal" value="heal">
                                 <input type='hidden' name="animal_id" value='<?= $animal->getId() ?>'>
-                                <button type="submit"> Soignez-le </button>
+                                <button type="submit" class="btn btn-success"> Soignez-le </button>
                             </form>
                         </p>
                         <?php } ?>
@@ -76,7 +89,7 @@ $currentPenCarac = $currentPen->getAllCarac();
                         <form action="./process/manage_animal.php" method='post'>
                             <input type="hidden" name="wake_up" value="wake_up">
                             <input type='hidden' name="animal_id" value='<?= $animal->getId() ?>'>
-                            <button type="submit"> Reveillez-le </button>
+                            <button type="submit" class="btn btn-success"> Reveillez-le </button>
                         </form>
                     </p>
                     <?php } ?>
@@ -85,7 +98,7 @@ $currentPenCarac = $currentPen->getAllCarac();
                             <form action="./process/manage_animal.php" method='post'>
                                 <input type="hidden" name="meat" value="heal">
                             <input type='hidden' name="animal_id" value='<?= $animal->getId() ?>'>
-                            <button type="submit"> Nourrissez-le </button>
+                            <button type="submit" class="btn btn-success"> Nourrissez-le </button>
                         </form>
                     </p>
                     <?php } ?>
@@ -124,23 +137,20 @@ $currentPenCarac = $currentPen->getAllCarac();
                                 <?php } ?>
                                 <input type="hidden" name="pen_id" value=<?= $_SESSION['pen_id'] ?>>
                                 
+                    
                                 <button type="submit" class="btn btn-success my-3">Ajouter un animal</button>
                                 
-                            </form>
-
-                            <!-- supprimer un animal -->
-                            <form action="" method='post'>
-                <input type="hidden" name="delete">
-                <button type="submit" class="btn btn-success my-3">Enlever un animal</button>
             </form>
-            <!-- nourrir les animaux -->
-            <!-- nettoyer -->
         </div>
     </div>
 </div>
 
 
-
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 
 <?php
 include_once('partials/footer.php');

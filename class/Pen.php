@@ -94,6 +94,10 @@ class Pen
        {
               return $this->populationNumber;
        }
+
+       public function getPopulationByArray() {
+              return count($this->population);
+       }
        
        
        public function getPopulationSpecies() : string
@@ -126,7 +130,7 @@ class Pen
               $carac =['name' => $this->getName(), 
               'cleanliness' => $this -> getcleanliness(), 
               'populationSpecies' => $this -> getPopulationSpecies(),
-              'populationNumber' =>  $this -> getPopulationNumber(),
+              'populationNumber' =>  $this -> getPopulationByArray(),
               // 'foodPortion' => $this -> getFoodPortion()
               ];
        return $carac;
@@ -152,6 +156,8 @@ class Pen
 
               $this -> setPopulationNumber($this ->getPopulationNumber(),-1);
               array_splice($this -> getPopulation(), -1, 1);
+
+
        }
 
        public function clean(){

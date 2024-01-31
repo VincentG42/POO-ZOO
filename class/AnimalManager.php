@@ -89,4 +89,18 @@ class AnimalManager{
     }
 
 
+    public function animalStateUpdate( Animal $animal){
+        $request = $this -> db -> prepare("UPDATE animal SET  is_hungry = :is_hungry, is_sick = :is_sick, is_awake = :is_awake  WHERE id =:id");
+
+        $request ->execute ([
+            'id' => $animal -> getId(),
+            'is_hungry' => intval($animal -> getIsHungry()),
+            'is_sick' => intval($animal -> getIsSick()),
+            'is_awake' => intval($animal -> getIsAwake())
+
+            
+        ]);
+    }
+
+
 }

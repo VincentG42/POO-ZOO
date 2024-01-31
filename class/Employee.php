@@ -122,15 +122,16 @@ class Employee {
     }
 
     public function removeFromPen (Pen $pen){
-        if( $pen -> getPopulationNumber() >1){
+        // if( $pen -> getPopulationByArray() >1){
 
             $pen -> removeAnimal();
 
-        } else if ($pen -> getPopulationNumber() === 1){
+        // } 
+        // else if ($pen -> getPopulationByArray() === 1){
 
-        $pen -> setPopulationSpecies('');
-        $pen -> removeAnimal();
-        }
+        // $pen -> setPopulationSpecies('à définir');
+        // $pen -> removeAnimal();
+        // }
     }
 
 

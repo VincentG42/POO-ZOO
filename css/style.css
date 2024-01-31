@@ -1,7 +1,7 @@
 /* globals */
-body{
+/* body{
     overflow: hidden;
-}
+} */
 
 .getback_link{
     position: fixed;
@@ -54,6 +54,12 @@ body{
 
 .pen_card p{
     margin-top: -0.8em;
+}
+
+.main_launch{
+    position: fixed;
+    bottom :2em;
+    left:5em;
 }
 
 /* pen_display */
